@@ -1,0 +1,141 @@
+// use prisma-next
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+
+  uploads   Upload[]
+}
+
+model Upload {
+  id          Int       @id @default(autoincrement())
+  filename    String
+  filePath    String
+  status      JobStatus @default(PENDING)
+  totalRows   Int       @default(0)
+  processedRows Int      @default(0)
+  validRows   Int       @default(0)
+  invalidRows Int       @default(0)
+  duplicates  Int       @default(0)
+  createdAt   TimestamptzString @default(now())
+  updatedAt  temporal.updatedAtString()
+
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  analyticsReports AnalyticsReport[]
+  regionAnalytics RegionAnalytics[]
+  categoryAnalytics CategoryAnalytics[]
+  topTransactions TopTransaction[]
+  dailyRevenue DailyRevenue[]
+}
+
+model Transaction {
+  id               Int       @id @default(autoincrement())
+  transactionId    String
+  region           String
+  productCategory  String
+  quantity         Decimal
+  unitPrice        Decimal
+  discountPercent  Decimal
+  transactionDate  TimestamptzString
+  netAmount        Decimal
+
+  status           TransactionStatus @default(VALID)
+  errorMessage     String?
+
+  uploadId         Int
+  upload           Upload @relation(fields: [uploadId], references: [id], onDelete: Cascade)
+
+  createdAt        TimestamptzString @default(now())
+
+  @@index([uploadId])
+  @@index([transactionId])
+}
+
+model AnalyticsReport {
+  id                     Int      @id @default(autoincrement())
+  uploadId               Int
+
+  totalRevenue           Float
+  averageOrderValue      Float
+  medianTransactionValue Float
+  discountLoss           Float
+  standardDeviation      Float
+
+  createdAt              TimestamptzString @default(now())
+
+  upload Upload @relation(fields: [uploadId], references: [id])
+
+  @@index([uploadId])
+}
+
+model RegionAnalytics {
+  id         Int    @id @default(autoincrement())
+  uploadId   Int
+  region     String
+  revenue    Float
+
+  upload Upload @relation(fields: [uploadId], references: [id])
+
+  @@index([uploadId])
+}
+
+model CategoryAnalytics {
+  id         Int    @id @default(autoincrement())
+  uploadId   Int
+  category   String
+  revenue    Float
+
+  upload Upload @relation(fields: [uploadId], references: [id])
+
+  @@index([uploadId])
+}
+
+model TopTransaction {
+  id            Int    @id @default(autoincrement())
+  uploadId      Int
+  transactionId String
+  region        String
+  category      String
+  netAmount     Float
+  rank          Int
+
+  upload Upload @relation(fields: [uploadId], references: [id])
+
+  @@index([uploadId])
+}
+
+model DailyRevenue {
+  id       Int    @id @default(autoincrement())
+  uploadId Int
+  date     String
+  revenue  Float
+
+  upload Upload @relation(fields: [uploadId], references: [id])
+
+  @@index([uploadId])
+}
+
+enum TransactionStatus {
+  VALID
+  INVALID
+  DUPLICATE
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum JobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
