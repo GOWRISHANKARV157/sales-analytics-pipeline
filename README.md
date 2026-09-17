@@ -174,10 +174,10 @@ The assessment asks for a full-stack system that ingests bulk sales/transaction 
                          │    Express Backend     │
                          │                        │
                          │ Authentication         │
-                         │ Upload APIs             │
-                         │ Processing APIs         │
-                         │ Analytics APIs          │
-                         │ Download API            │
+                         │ Upload APIs            │
+                         │ Processing APIs        │
+                         │ Analytics APIs         │
+                         │ Download API           │
                          └────────────┬───────────┘
                                       │
                     ┌─────────────────┼─────────────────┐
@@ -187,20 +187,20 @@ The assessment asks for a full-stack system that ingests bulk sales/transaction 
              │ Upload     │   │ Worker Pool  │  │ Analytics  │
              │ Service    │   │ Processing   │  │ Service    │
              └────────────┘   └──────┬───────┘  └─────┬──────┘
-                                     │                 │
-                                     └────────┬────────┘
+                                     │                │
+                                     └────────┬───────┘
                                               ▼
                                   ┌─────────────────────┐
                                   │     PostgreSQL      │
                                   │                     │
                                   │ Users               │
-                                  │ Uploads              │
-                                  │ Transactions         │
-                                  │ Analytics Reports    │
-                                  │ Region Analytics     │
-                                  │ Category Analytics   │
-                                  │ Top Transactions     │
-                                  │ Daily Revenue        │
+                                  │ Uploads             │
+                                  │ Transactions        │
+                                  │ Analytics Reports   │
+                                  │ Region Analytics    │
+                                  │ Category Analytics  │
+                                  │ Top Transactions    │
+                                  │ Daily Revenue       │
                                   └─────────────────────┘
 ```
 
@@ -307,7 +307,10 @@ sales-analytics-pipeline/
 │
 ├── sample-data/
 │   ├── sales_dashboard_test.csv
+│   └── sales_test.csv
 │   └── sales_valid_test.csv
+│   └── sales_sales_1000.csv
+│   └── sales_sales_10000.csv
 │
 ├── README.md
 └── .gitignore
