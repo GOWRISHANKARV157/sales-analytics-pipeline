@@ -1,0 +1,9 @@
+transaction_id,region,product_category,quantity,unit_price,discount_percent,transaction_date
+DASH-2001,North,Electronics,3,499.99,10,2025-02-01
+DASH-2002,South,Groceries,12,15.50,0,2025-02-01
+DASH-2003,East,Electronics,2,299.00,5,2025-02-02
+DASH-2004,West,Apparel,5,49.99,20,2025-02-02
+DASH-2005,North,Electronics,4,399.99,10,2025-02-03
+DASH-2006,South,Groceries,8,25.00,5,2025-02-03
+DASH-2007,West,Apparel,6,79.99,15,2025-02-04
+DASH-2008,East,Electronics,1,899.99,0,2025-02-04

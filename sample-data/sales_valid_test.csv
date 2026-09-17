@@ -1,0 +1,7 @@
+transaction_id,region,product_category,quantity,unit_price,discount_percent,transaction_date
+TEST-001,North,Electronics,2,500,10,2025-03-01
+TEST-002,South,Groceries,-3,20,0,2025-03-01
+TEST-003,East,Electronics,2,abc,5,2025-03-02
+TEST-004,West,Apparel,3,50,,2025-03-02
+TEST-005,North,Electronics,1,100,10,2099-01-01
+TEST-001,North,Electronics,2,500,10,2025-03-01

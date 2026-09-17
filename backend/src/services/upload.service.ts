@@ -135,10 +135,13 @@ export function processRow(
     }
 
     // Derived value
-    const netAmount =
-        quantity *
-        unitPrice *
-        (1 - discountPercent / 100);
+    const netAmount = Number(
+        (
+            quantity *
+            unitPrice *
+            (1 - discountPercent / 100)
+        ).toFixed(2)
+    );
 
     return {
         transactionId,
@@ -167,7 +170,9 @@ export async function processUpload(
 
     try {
         const existingTransactions =
-            await db.orm.public.Transaction.all();
+            await db.orm.public.Transaction
+                .where({ uploadId })
+                .all();
 
         const existingTransactionIds = new Set(
             existingTransactions.map(
